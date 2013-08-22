@@ -27,7 +27,7 @@ KissmetricsClient.prototype.request = function(pathname, params, callback) {
     if (err) {
       callback(err);
     } else if (! resp.ok) {
-      callback(new Error("kissmetrics http " + resp.status + " " + resp.text));
+      callback("kissmetrics http " + resp.status + " " + resp.text);
     } else {
       callback(null, resp);
     }
@@ -62,10 +62,10 @@ KissmetricsClient.prototype.event = function(person, event, properties, callback
     properties = {};
   }
   properties = properties || {};
-  
+
   properties._p = person;
   properties._n = event;
-  
+
   this.request('/e', properties, callback);
 }
 
