@@ -1,4 +1,6 @@
-# node-kissmetrics
+# kissmetrics-client
+
+[![NPM version](https://badge.fury.io/js/kissmetrics-client.png)](http://badge.fury.io/js/kissmetrics-client)
 
 KISSmetrics client for node.js
 
@@ -6,7 +8,7 @@ KISSmetrics client for node.js
 
 ```js
 // create a new KM Client instance:
-var Kissmetrics = require('kissmetrics');
+var Kissmetrics = require('kissmetrics-client');
 var kmClient = new Kissmetrics({ key: KM_KEY });
 
 // record an event
@@ -19,92 +21,108 @@ kmClient.event('blah@example.com', 'signed up');
  * ability to not console.log on error
  * this module has tests
  * documentation moved to readme for better accessibility
- * remove alias methods. aliases considered harmful
  * default kissmetrics endpoint uses SSL
  * pull request was [denied](https://github.com/glesperance/node-kissmetrics/pull/3)
 
 ## Documentation
 
-### KissmetricsClient(options)
-
 KISSmetrics REST client constructor.
 
-@param options {Object} The options object defining the REST client to
-instantiate. Its possible parameters are :
+```JavaScript
+KissmetricsClient(options)
+```
 
-@param key {String} your KISSmetrics API key.
++ **options**
+	*Object*
+		The options object defining the REST client to instantiate. Its possible parameters are :
 
-@param endpoint {String} (optional) The tracker endpoint to which the client
-connects to. Defaults to 'https://trk.kissmetrics.com'
+	+ **key** *String* your KISSmetrics API key.
+	+ **endpoint** *String* (optional) The tracker endpoint to which the client connects to. Defaults to 'https://trk.kissmetrics.com'
 
-#### client.set(person, properties, [callback])
+---
 
 Sets properties on a person without recording an event by making a request.
 
-@param person {String} The identity of the person.
+```JavaScript
+client.set(person, properties, [callback])
+```
+
++ **person** *String* The identity of the person.
 
 This is limited to 255 chars and all commas (,), and colons (:) will
 automatically be changed to spaces (KISSmetrics will convert foo:bar,baz to
 foo bar baz).
 
-@param properties {Object} An object containing the properties to be set on
++ **properties** *Object* An object containing the properties to be set on
 `person`.
 
-@param callback {Function} A function of the form `function(err)`.
++ **callback** *Function* (optional) A function of the form `function(err)`.
 The default callback logs erroneous requests to stderr.
 
-#### client.alias(person, aliases, [callback])
+---
 
 Aliases the user identified by `person` with `aliases`.
 
-@param person {String} The identity of the person.
+```JavaScript
+client.alias(person, aliases, [callback])
+```
+
++ **person** *String* The identity of the person.
 
 This is limited to 255 chars and all commas (,), and colons (:) will
 automatically be changed to spaces (KISSmetrics will convert foo:bar,baz to
 foo bar baz).
 
-@param alias | aliases {String|Array} The alias to apply to the person.
++ **alias** | **aliases** *String* | *Array* The alias to apply to the person.
 
 This is limited to 255 chars and all commas (,), and colons (:) will
 automatically be changed to spaces (KISSmetrics will convert foo:bar,baz to
 foo bar baz).
 
-Can either be a string or an array of string if multiple alias are supplied.
+Can either be a *String* or an array of *String* if multiple alias are supplied.
 
-@param callback {Function} A callback of the form `function(err)`.
++ **callback** *Function* (optional) A function of the form `function(err)`.
 The default callback logs erroneous requests to stderr.
 
-#### client.event(person, event, properties, [callback])
+---
 
 Records `event` for `person. Also sets `properties` on the person if
 specified.
 
-@param person {String} The identity of the person doing the event.
+```JavaScript
+client.event(person, event, properties, [callback])
+```
+
++ **person** *String* The identity of the person.
 
 This is limited to 255 chars and all commas (,), and colons (:) will
 automatically be changed to spaces (KISSmetrics will convert foo:bar,baz to
 foo bar baz).
 
-@param event {String} The name of the event you want to record.
++ **event** *String* The name of the event you want to record.
 
 This is limited to 255 chars and all commas (,), and colons (:) will
 automatically be changed to spaces (KISSmetrics will convert foo:bar,baz to
 foo bar baz).
 
-@param properties {Object} (optional) An object containing the properties to
++ **properties** *Object* (optional) An object containing the properties to
 be set on `person`.
 
-@param callback {Function} A function of the form `function(err)`.
++ **callback** *Function* (optional) A function of the form `function(err)`.
 The default callback logs erroneous requests to stderr.
 
-#### client.request(pathname, params, [callback])
+---
 
 Performs the given request on the KISSmetrics tracker host.
 
-@param pathname {String} The path section of the URL, that comes after the
+```JavaScript
+client.request(pathname, params, [callback])
+```
+
++ **pathname** *String* The path section of the URL, that comes after the
 host and before the query, including the initial slash if present.
 
-@param params {Object}
++ **params** *Object*
 
-@param callback {Function} A callback of the form `function(res)`.
++ **callback** *Function* (optional) A function of the form `function(err)`.
 The default callback logs erroneous requests to stderr.
